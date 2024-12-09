@@ -35,5 +35,12 @@ class PostgresSettings(BaseSettings):
     model_config = get_model_config("postgres_")
 
 
+class JWTSettings(BaseSettings):
+    secret_key: str
+
+    model_config = get_model_config("jwt_")
+
+
 app_settings = AppSettings()
 postgres_settings = PostgresSettings()
+jwt_settings = JWTSettings()
