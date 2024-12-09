@@ -1,3 +1,3 @@
-from api.routes import user
+from api.routes import user, token
 
-routers = [user.router]
+routers = [user.router, token.router]

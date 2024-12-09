@@ -10,3 +10,12 @@ class User(BaseServiceSchema):
     role_id: uuid.UUID
     role: Role
     reviews: list[Review]
+
+
+class TokenCreate(BaseServiceSchema):
+    username: str
+    password: str
+
+
+class UserCreate(TokenCreate):
+    pass
