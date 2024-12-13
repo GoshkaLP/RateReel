@@ -6,7 +6,7 @@ from api.routes.schemas import user as api_schemas
 from api.utils.token_validator import TokenValidator
 from api import choices
 
-router = APIRouter(prefix="/api/user")
+router = APIRouter(prefix="/api/user", tags=["user"])
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)

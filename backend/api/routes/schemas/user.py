@@ -1,9 +1,9 @@
-from api.routes.schemas.base import BaseApiSchema
+from api.routes.schemas.base import BaseApiSchema, IdApiSchemaMixin
 from api.services.schemas import user as service_schemas
 from pydantic import BaseModel
 
 
-class User(BaseApiSchema):
+class User(BaseApiSchema[service_schemas.User], IdApiSchemaMixin):
     username: str
     role_name: str
 
@@ -16,14 +16,11 @@ class User(BaseApiSchema):
         )
 
 
-class TokenCreate(BaseModel):
+class TokenCreate(BaseApiSchema[service_schemas.TokenCreate]):
     username: str
     password: str
 
-    def to_service_schema(self) -> service_schemas.TokenCreate:
-        return service_schemas.TokenCreate(**self.model_dump())
 
-
-class UserCreate(TokenCreate):
-    def to_service_schema(self) -> service_schemas.UserCreate:
-        return service_schemas.UserCreate(**self.model_dump())
+class UserCreate(BaseApiSchema[service_schemas.UserCreate]):
+    username: str
+    password: str

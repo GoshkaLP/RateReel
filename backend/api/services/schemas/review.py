@@ -1,5 +1,6 @@
 from api.services.schemas.base import BaseServiceSchema
 import uuid
+from api.services.schemas.user import User
 
 
 class Review(BaseServiceSchema):
@@ -8,3 +9,4 @@ class Review(BaseServiceSchema):
     content: str
     rating: float
     approved: bool
+    user: User

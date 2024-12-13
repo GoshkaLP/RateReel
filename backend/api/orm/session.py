@@ -1,6 +1,3 @@
-from fastapi import Depends
-from sqlalchemy.orm import Session
-from typing_extensions import Annotated
 from contextlib import contextmanager
 
 from api.orm.base import session_factory
@@ -16,6 +13,3 @@ def get_session():
         raise
     finally:
         session.close()
-
-
-# DepSession = Annotated[Session, Depends(get_session)]
