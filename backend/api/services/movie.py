@@ -37,5 +37,5 @@ class MovieService(BaseService[models.Movie, schemas.Movie, MovieRepo]):
             self.session.commit()
             return
         raise service_exc.AlreadyExistError(
-            detail=f"Movie {payload.username} already exist"
+            detail=f"Movie {payload.title} already exist"
         )

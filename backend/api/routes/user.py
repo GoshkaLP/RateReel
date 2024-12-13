@@ -12,7 +12,7 @@ router = APIRouter(prefix="/api/user", tags=["user"])
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create_user(payload: api_schemas.UserCreate):
     with get_session() as session:
-        return UserService(session).create_user(payload)
+        return UserService(session).create_user(payload.to_service_schema())
 
 
 @router.get(

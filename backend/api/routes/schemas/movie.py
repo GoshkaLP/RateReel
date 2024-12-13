@@ -36,3 +36,6 @@ class MovieCreate(BaseApiSchema[service_schemas.MovieCreate]):
     title: str
     description: str
     imdb_rating: float
+
+    def to_service_schema(self, **kwargs) -> service_schemas.MovieCreate:
+        return service_schemas.MovieCreate.model_validate(self.model_dump())

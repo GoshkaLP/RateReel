@@ -1,4 +1,7 @@
-from api.services.schemas.base import BaseServiceSchema
+from api.services.schemas.base import (
+    BaseServiceSchema,
+    IdCreatedDeletedServiceSchemaMixin,
+)
 import uuid
 
 
@@ -8,5 +11,5 @@ class MovieCreate(BaseServiceSchema):
     imdb_rating: float
 
 
-class Movie(MovieCreate):
+class Movie(MovieCreate, IdCreatedDeletedServiceSchemaMixin):
     logo_file_id: uuid.UUID

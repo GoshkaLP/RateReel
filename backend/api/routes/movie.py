@@ -28,7 +28,7 @@ def create_movie(
             title=title, description=description, imdb_rating=imdb_rating
         )
         return MovieService(session).create_movie(
-            payload=payload, logo_file=logo_file.file
+            payload=payload.to_service_schema(), logo_file=logo_file.file
         )
 
 

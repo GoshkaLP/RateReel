@@ -39,7 +39,7 @@ class Review(Base):
     movie_id = Column(UUID, ForeignKey("movie.id"), nullable=False)
     content = Column(Text, nullable=False)
     rating = Column(NUMERIC, nullable=False)
-    approved = Column(Boolean, default=False)
+    status = Column(Text, nullable=False)
 
     user = relationship("User", back_populates="reviews", uselist=False)
     movie = relationship("Movie", back_populates="reviews", uselist=False)
