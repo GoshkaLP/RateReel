@@ -1,9 +1,9 @@
-import uuid
 from sqlalchemy.orm import Session
 from sqlalchemy import sql
 from typing import TypeVar, Generic, Type
 from sqlalchemy import exc as sa_exc
 from api.repo import exceptions as repo_exc
+from api.orm.filters_parser import FilterParser
 
 ModelType = TypeVar("ModelType")
 
@@ -13,11 +13,12 @@ class BaseRepo(Generic[ModelType]):
 
     def __init__(self, session: Session):
         self.session = session
+        self.filter_parser = FilterParser(self.model)
 
     def _base_select_stmt(self, **filters) -> sql.Select:
         stmt = sql.select(self.model)
-        for attr, value in filters.items():
-            stmt = stmt.where(getattr(self.model, attr) == value)
+        for expression, value in filters.items():
+            stmt = stmt.where(self.filter_parser.parse_filter(expression, value))
         return stmt
 
     def _apply_relations(self, stmt: sql.Select) -> sql.Select:

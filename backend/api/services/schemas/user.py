@@ -1,17 +1,19 @@
-from api.services.schemas.base import BaseServiceSchema
+from api.services.schemas.base import (
+    BaseServiceSchema,
+    IdCreatedDeletedServiceSchemaMixin,
+)
 from api.services.schemas.role import Role
 import uuid
-from pydantic import BaseModel
 
 
-class User(BaseServiceSchema):
+class User(BaseServiceSchema, IdCreatedDeletedServiceSchemaMixin):
     username: str
     password: str
     role_id: uuid.UUID
     role: Role
 
 
-class TokenCreate(BaseModel):
+class TokenCreate(BaseServiceSchema):
     username: str
     password: str
 

@@ -10,10 +10,10 @@ ApiSchema = TypeVar("ApiSchema", bound="BaseApiSchema")
 class BaseApiSchema(BaseModel, Generic[ServiceSchema]):
     @classmethod
     def from_service_schema(cls, service_schema: ServiceSchema) -> ApiSchema:
-        return cls.model_validate(service_schema.model_dump())
+        raise NotImplemented
 
-    def to_service_schema(self) -> ServiceSchema:
-        return ServiceSchema.model_validate(self.model_dump())
+    def to_service_schema(self, **kwargs) -> ServiceSchema:
+        raise NotImplemented
 
 
 class IdApiSchemaMixin(BaseModel):

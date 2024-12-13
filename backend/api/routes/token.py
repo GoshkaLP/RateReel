@@ -9,4 +9,4 @@ router = APIRouter(prefix="/api/token", tags=["token"])
 @router.post("/", status_code=status.HTTP_202_ACCEPTED)
 def create_token(payload: api_schemas.TokenCreate):
     with get_session() as session:
-        return UserService(session).auth_user(payload)
+        return UserService(session).auth_user(payload.to_service_schema())
