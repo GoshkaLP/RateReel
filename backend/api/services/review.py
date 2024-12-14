@@ -7,6 +7,7 @@ from api.services.schemas import review as schemas
 from api.services.base import BaseService
 from api.repo import exceptions as repo_exc
 from api.services import exceptions as service_exc
+from api.choices import ReviewStatus
 
 
 class ReviewService(BaseService[models.Review, schemas.Review, ReviewRepo]):
@@ -23,7 +24,9 @@ class ReviewService(BaseService[models.Review, schemas.Review, ReviewRepo]):
             )
         try:
             self.repo(self.session).get_resource_by_filters(
-                user_id=payload.user_id, movie_id=payload.movie_id
+                user_id=payload.user_id,
+                movie_id=payload.movie_id,
+                status__in=[ReviewStatus.pending.value, ReviewStatus.approved.value],
             )
         except repo_exc.NotFoundError:
             review_orm = models.Review(
