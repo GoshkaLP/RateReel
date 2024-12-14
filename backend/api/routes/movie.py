@@ -15,6 +15,7 @@ router = APIRouter(prefix="/api/movie", tags=["movie"])
 @router.post(
     "/",
     status_code=status.HTTP_201_CREATED,
+    summary="[Admin] Create movie",
     dependencies=[Security(TokenValidator(role_name=choices.Role.admin))],
 )
 def create_movie(
@@ -36,6 +37,7 @@ def create_movie(
     "/",
     response_model=list[api_schemas.MovieMulti],
     status_code=status.HTTP_200_OK,
+    summary="Get list of movies",
 )
 def get_movies():
     with get_session() as session:
@@ -47,6 +49,7 @@ def get_movies():
     "/{resource_id}",
     response_model=api_schemas.MovieDetailed,
     status_code=status.HTTP_200_OK,
+    summary="Get detailed movie info by id",
 )
 def get_movie(resource_id: uuid.UUID):
     with get_session() as session:

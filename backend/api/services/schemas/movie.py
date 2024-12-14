@@ -4,6 +4,8 @@ from api.services.schemas.base import (
 )
 import uuid
 
+from api.services.schemas.review import Review
+
 
 class MovieCreate(BaseServiceSchema):
     title: str
@@ -13,3 +15,4 @@ class MovieCreate(BaseServiceSchema):
 
 class Movie(MovieCreate, IdCreatedDeletedServiceSchemaMixin):
     logo_file_id: uuid.UUID
+    reviews: list[Review]

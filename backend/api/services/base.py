@@ -18,7 +18,7 @@ class BaseService(Generic[ModelType, ServiceSchema, Repo]):
     def __init__(self, session: Session):
         self.session = session
 
-    def get_resource_by_filters(self, **filters) -> ModelType:
+    def get_resource_by_filters(self, **filters) -> ServiceSchema:
         try:
             result = self.repo(self.session).get_resource_by_filters(**filters)
         except repo_exc.NotFoundError as e:
@@ -27,6 +27,6 @@ class BaseService(Generic[ModelType, ServiceSchema, Repo]):
             raise service_exc.MultipleFoundError(detail=e.detail) from e
         return self.service_schema.model_validate(result)
 
-    def get_resources(self, **filters) -> list[ModelType]:
+    def get_resources(self, **filters) -> list[ServiceSchema]:
         result = self.repo(self.session).get_resources(**filters)
         return [self.service_schema.model_validate(row) for row in result]

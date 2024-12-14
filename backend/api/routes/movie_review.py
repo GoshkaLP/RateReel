@@ -12,7 +12,9 @@ from api.utils.token_validator import TokenValidator
 router = APIRouter(prefix="/api/movie/{movie_id}/review", tags=["movie-review"])
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/", status_code=status.HTTP_201_CREATED, summary="Create review for movie"
+)
 def create_movie_review(
     movie_id: uuid.UUID,
     payload: api_schemas.ReviewCreate,
@@ -25,7 +27,10 @@ def create_movie_review(
 
 
 @router.get(
-    "/", status_code=status.HTTP_200_OK, response_model=list[api_schemas.Review]
+    "/",
+    status_code=status.HTTP_200_OK,
+    response_model=list[api_schemas.Review],
+    summary="Get list of reviews for movie",
 )
 def get_movie_reviews(movie_id: uuid.UUID):
     with get_session() as session:
@@ -41,6 +46,7 @@ def get_movie_reviews(movie_id: uuid.UUID):
 @router.patch(
     "/{review_id}",
     status_code=status.HTTP_201_CREATED,
+    summary="[Admin] Change review status",
     dependencies=[Security(TokenValidator(role_name=choices.Role.admin))],
 )
 def change_movie_review_status(
